@@ -1,0 +1,229 @@
+/* NovaHarvest - site.css
+   Palette inspired by the Valle del Jerte: cherry, leaf green, blossom white. */
+
+:root {
+  --cherry-900: #4a0f1f;
+  --cherry-700: #7a1a33;
+  --cherry-500: #a82745;
+  --leaf-700: #2f6b3f;
+  --leaf-500: #4a8f5a;
+  --blossom-50: #fbf9fa;
+  --blossom-100: #f3eef0;
+  --blossom-300: #ddd2d6;
+  --ink: #261a1f;
+  --ink-soft: #5b4b52;
+
+  --font-body: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+
+  --content-width: 46rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--blossom-50);
+}
+
+/* ---------- Header ---------- */
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 0.9rem clamp(1rem, 5vw, 3rem);
+  background: var(--cherry-900);
+  color: #fff;
+  border-bottom: 4px solid var(--leaf-500);
+}
+
+header img {
+  display: block;
+  height: 44px;
+  width: auto;
+  max-width: 100%;
+}
+
+header > span {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-right: auto;
+}
+
+/* ---------- Navigation ---------- */
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  color: #f5e6ea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+nav a:hover {
+  background: var(--cherry-700);
+  color: #fff;
+}
+
+nav a[aria-current="page"] {
+  background: var(--blossom-50);
+  color: var(--cherry-900);
+}
+
+/* ---------- Main content ---------- */
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: clamp(1.75rem, 5vw, 3.5rem) clamp(1rem, 5vw, 2rem);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.15;
+  color: var(--cherry-700);
+  border-bottom: 3px solid var(--leaf-500);
+}
+
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.25;
+  color: var(--cherry-900);
+  margin: 2rem 0 0.75rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 0 0 1.1rem;
+  max-width: 68ch;
+}
+
+/* The first paragraph works as the lead of each page */
+main h1 + p {
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+}
+
+a {
+  color: var(--leaf-700);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--cherry-700);
+}
+
+ul,
+ol {
+  padding-left: 1.4rem;
+  margin: 0 0 1.1rem;
+}
+
+li {
+  margin-bottom: 0.35rem;
+}
+
+strong {
+  color: var(--cherry-900);
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.95em;
+  background: var(--blossom-100);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  padding: 1.25rem clamp(1rem, 5vw, 3rem);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  background: var(--blossom-100);
+  border-top: 1px solid var(--blossom-300);
+}
+
+/* ---------- Accessibility ---------- */
+
+a:focus-visible {
+  outline: 3px solid var(--leaf-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+nav a:focus-visible {
+  outline-color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 36rem) {
+  header > span {
+    font-size: 1.3rem;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  nav a {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
