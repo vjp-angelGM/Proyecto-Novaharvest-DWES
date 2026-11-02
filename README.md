@@ -56,5 +56,15 @@ El backend utiliza ASP.NET Core y Kestrel para procesar las peticiones y generar
 
 ## 3. DIAGRAMA DE ARQUITECTURA
 
+![Arquitectura del proyecto NovaHarvest](images/Estructura_proyecto.png)
 
 ## 4. RECORRIDO DE LAS PETICIONES 
+
+El recorrido que realiza las peticiones es:
+
+1. El usuario introduce la URL en el navegador.
+2. NGINX recibe la petición.
+3. NGINX reenvía dicha petición por la red interna de Docker.
+4. Kestrel procesa la petición y ejecuta el código C# correspondiente.
+5. El backend la devuelve a NGINX.
+6. NGINX entrega respuesta al navegador.
