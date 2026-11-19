@@ -68,3 +68,5 @@ El recorrido que realiza las peticiones es:
 4. Kestrel procesa la petición y ejecuta el código C# correspondiente.
 5. El backend la devuelve a NGINX.
 6. NGINX entrega respuesta al navegador.
+
+## 5. PÁGINAS QUE CONTIENE EL PROYECTO

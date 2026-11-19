@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\angel\\Desktop\\Proyecto-Novaharvest-DWES\\novaharvest-web\\backend\\NovaHarvest.Web\\NovaHarvest.Web.csproj",
+      "projectUniqueName": "D:\\2daw\\Proyecto\\Proyecto Clonado\\Proyecto-Novaharvest-DWES\\novaharvest-web\\backend\\NovaHarvest.Web\\NovaHarvest.Web.csproj",
       "projectName": "NovaHarvest.Web",
-      "projectPath": "C:\\Users\\angel\\Desktop\\Proyecto-Novaharvest-DWES\\novaharvest-web\\backend\\NovaHarvest.Web\\NovaHarvest.Web.csproj",
+      "projectPath": "D:\\2daw\\Proyecto\\Proyecto Clonado\\Proyecto-Novaharvest-DWES\\novaharvest-web\\backend\\NovaHarvest.Web\\NovaHarvest.Web.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\angel\\Desktop\\Proyecto-Novaharvest-DWES\\novaharvest-web\\backend\\NovaHarvest.Web\\obj\\",
+      "outputPath": "D:\\2daw\\Proyecto\\Proyecto Clonado\\Proyecto-Novaharvest-DWES\\novaharvest-web\\backend\\NovaHarvest.Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config"
