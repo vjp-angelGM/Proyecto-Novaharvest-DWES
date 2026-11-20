@@ -1,0 +1,13 @@
+@page
+
+@model StatusModel
+
+@{
+    ViewData["Title"] = "Estado";
+}
+
+<h1>Estado del servidor</h1>
+<br />
+<p>Hora del servidor: @Model.Stats.ServerTime</p>
+<p>Visitas: @Model.Stats.Visits</p>
+<p>Servidor: @Model.Stats.ServerName</p>

@@ -1,0 +1,23 @@
+@inject IWebHostEnvironment Env
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>NovaHarvest - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="/css/site.css">
+    <meta name="theme-color" content="#8e1b2f">
+</head>
+
+<body>
+    <header>
+        <a href="/">Inicio</a> · <a href="/surplus">Excedente</a> · <a href="/about">Acerca de</a> · <a href="/status">Estado</a>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+   <footer>&copy; @DateTime.Now.Year NovaHarvest · Entorno: @Env.EnvironmentName</footer>
+</body>
+
+</html>
