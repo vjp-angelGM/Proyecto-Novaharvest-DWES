@@ -1,21 +1,26 @@
-@page "./ticket";
+@page "/ticket";
 
+@model TicketModel
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Ticket</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/site.css" />
+    <title>Justificante de Reserva</title>
 </head>
-
 <body>
-    <h1>NovaHarvest</h1>
-    <p>Pedido: ORD-0001</p>
-    <p>Generada: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+    <main>
+        <h1>Justificante de Reserva</h1>
+        <p>Reserva: @Model.ReservationCode</p>
+        <p>Producto: @Model.Product</p>
+        <p>Kilos: @Model.Kg</p>
+        <p>Recogida: @Model.PickupPoint</p>
+        <p>Generado el @Model.GeneratedAt.ToString("dd/MM/yyyy HH:mm")</p>
+    </main>
 </body>
-
 </html>
