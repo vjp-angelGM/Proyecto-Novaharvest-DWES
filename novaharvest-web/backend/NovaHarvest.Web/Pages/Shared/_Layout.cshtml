@@ -8,16 +8,23 @@
     <title>NovaHarvest - @ViewData["Title"]</title>
     <link rel="stylesheet" href="/css/site.css">
     <meta name="theme-color" content="#8e1b2f">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <header>
-        <a href="/">Inicio</a> · <a href="/surplus">Excedente</a> · <a href="/about">Acerca de</a> · <a href="/status">Estado</a>
+        <img src="/img/logo.png" alt="Logo de NovaHarvest" /><h3>Novaharvest</h3>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/surplus">Excedente</a>
+            <a href="/about">Acerca de</a>
+            <a href="/status">Estado</a>
+        </nav>        
     </header>
     <main>
         @RenderBody()
     </main>
-   <footer>&copy; @DateTime.Now.Year NovaHarvest · Entorno: @Env.EnvironmentName</footer>
+   <footer>&copy; @DateTime.Now.Year NovaHarvest IES Valle del Jerte Entorno: @Env.EnvironmentName</footer>
 </body>
 
 </html>

@@ -1,22 +1,16 @@
 /* NovaHarvest - site.css */
 
 :root {
-    --primary: #8e1b2f;
-    --primary-dark: #6d1524;
-
-    --secondary: #2f6b45;
+    --primary: #b63e52;
+    --primary-dark: #73b647;
+    --secondary: #23a2b3;
     --secondary-dark: #234f34;
-
-    --background: #f5f7f5;
+    --background: #698b69;
     --surface: #ffffff;
-
     --text: #2c2c2c;
     --text-light: #666666;
-
     --border: #dddddd;
-
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
     --font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -43,19 +37,13 @@ body {
     background-color: var(--background);
 }
 
-/* HEADER */
-
 header {
     display: flex;
     align-items: center;
     gap: 1rem;
-
     padding: 1rem 2rem;
-
     background-color: var(--surface);
-
     border-bottom: 1px solid var(--border);
-
     box-shadow: var(--shadow);
 }
 
@@ -68,35 +56,31 @@ header span {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--primary);
-
-    margin-right: auto;
 }
 
 /* NAV */
 
 nav {
     display: flex;
+    align-items: center;
+    margin-left: auto;
     gap: 0.75rem;
     flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 nav a {
     text-decoration: none;
-
     color: var(--text);
-
     font-weight: 600;
-
     padding: 0.5rem 0.8rem;
-
     border-radius: 6px;
-
     transition: all 0.2s ease;
 }
 
 nav a:hover {
     background-color: var(--primary);
-    color: white;
+    color: #ffffff;
 }
 
 nav a:focus-visible {
@@ -108,32 +92,25 @@ nav a:focus-visible {
 
 main {
     flex: 1;
-
     width: calc(100% - 2rem);
     max-width: 1100px;
-
     margin: 2rem auto;
-
     padding: 2rem;
-
     background-color: var(--surface);
-
     border: 1px solid var(--border);
-
     border-radius: 12px;
-
     box-shadow: var(--shadow);
+}
+main p{
+    margin-top: -20px;
 }
 
 /* TITLES */
 
 h1 {
     margin-top: 0;
-
     color: var(--primary);
-
     font-size: 2.5rem;
-
     font-weight: 700;
 }
 
@@ -145,7 +122,6 @@ h3 {
     color: var(--secondary);
 }
 
-/* TEXT */
 
 p {
     margin-bottom: 1rem;
@@ -168,29 +144,22 @@ img {
     height: auto;
 }
 
-/* LISTS */
 
 ul,
 ol {
     padding-left: 1.5rem;
 }
 
-/* BUTTONS */
+
 
 button {
     padding: 0.75rem 1.25rem;
-
     border: none;
     border-radius: 6px;
-
     background-color: var(--primary);
-
     color: white;
-
     font-weight: 600;
-
     cursor: pointer;
-
     transition: background-color 0.2s ease;
 }
 
@@ -203,21 +172,16 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* FOOTER */
 
 footer {
     padding: 1rem;
-
     text-align: center;
-
     background-color: var(--secondary);
-
     color: white;
-
     font-size: 0.95rem;
 }
 
-/* SURPLUS */
+
 
 .urgent {
     color: #c62828;
@@ -225,23 +189,35 @@ footer {
     font-variant: small-caps;
 }
 
-/* MOBILE */
+
 
 @media (max-width: 768px) {
+
     header {
-        flex-wrap: wrap;
+        padding: 0.75rem;
     }
 
     nav {
         width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0.2rem;
     }
 
-    main {
-        width: calc(100% - 1rem);
-        padding: 1.5rem;
+    nav img {
+        height: 30px;
     }
 
-    h1 {
-        font-size: 2rem;
+    nav h3 {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    nav a {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.4rem;
+        white-space: nowrap;
     }
 }

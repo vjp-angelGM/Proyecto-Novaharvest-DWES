@@ -30,4 +30,4 @@ D:\2daw\Proyecto\Proyecto Clonado\Proyecto-Novaharvest-DWES\novaharvest-web\back
 D:\2daw\Proyecto\Proyecto Clonado\Proyecto-Novaharvest-DWES\novaharvest-web\backend\NovaHarvest.Web\obj\Debug\net10.0\NovaHarvest.Web.pdb
 D:\2daw\Proyecto\Proyecto Clonado\Proyecto-Novaharvest-DWES\novaharvest-web\backend\NovaHarvest.Web\obj\Debug\net10.0\NovaHarvest.Web.genruntimeconfig.cache
 D:\2daw\Proyecto\Proyecto Clonado\Proyecto-Novaharvest-DWES\novaharvest-web\backend\NovaHarvest.Web\obj\Debug\net10.0\ref\NovaHarvest.Web.dll
-D:\2daw\Proyecto\Proyecto Clonado\Proyecto-Novaharvest-DWES\novaharvest-web\backend\NovaHarvest.Web\obj\Debug\net10.0\compressed\cbg3br4vh6-{0}-2ftsi47ge1-2ftsi47ge1.gz
+D:\2daw\Proyecto\Proyecto Clonado\Proyecto-Novaharvest-DWES\novaharvest-web\backend\NovaHarvest.Web\obj\Debug\net10.0\compressed\cbg3br4vh6-{0}-ch8bwjfg2m-ch8bwjfg2m.gz
