@@ -70,3 +70,8 @@ El recorrido que realiza las peticiones es:
 6. NGINX entrega respuesta al navegador.
 
 ## 5. PÁGINAS QUE CONTIENE EL PROYECTO
+- **Inicio**
+- **Acerca de**
+- **Estado servidor**
+- **Excedente**
+- **Ticket**
