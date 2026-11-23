@@ -172,7 +172,73 @@ Lo hace para evitar que cualquier usuario malintencionado pueda inyectar HTML o 
 
 #### ¿Qué pasaría si usamos @Html.Raw()?
 Al hacer esto, `Razor` no protege el contenido e interpretaría el navegador directamente el contenido del `HTML`, que también mostraría en este caso la etiqueta en negrita, pero también a cualquier usuario malicioso, podría ejecutar código, ya que está desactivando la protección automática de `Razor`, pudiendo éste, hacer una redirección a otra página con `window.location`, lo que supone un riesgo de seguridad.
+#### Caso A: 
+Como no realizamos ningún cambio la página muestra en los Kg disponibles 223. Lo que hace la web es mostrar el resultado tal cual.
 
+Código para comprobar la operación:
+```
+AvailableKg = 343,
+ReservedKg = 120,
+```
+Con lo que nos da lo que nos muestra la página por defecto: 
+```
+Kg Disponibles: 223Kg 
+```
+Y a la hora de visualizar la página nos muestra los siguientes datos: 
+```
+44 Cajas de 5kg y 3Kg sueltos
+```
+#### Caso B
+En este caso lo que tenemos que modificar en el código del proyecto es `ReservedKg` y lo tenemos que poner como `ReservedKg = 300`.
+
+Código para comprobar la operación:
+```
+AvailableKg = 343,
+ReservedKg = 300,
+```
+
+A la hora de visualizar la página de nuevo con estos datos actualizados, nos muestra:
+```
+Kg Disponibles = 43
+8 Cajas de 5kg y 3kg sueltos.
+Valor del excedente = 96.32 
+Estado = "¡Últimos Kilos!"
+```
+#### Caso C: 
+Hacemos la misma operación que en el caso anterior pero esta vez el valor de `ReservedKg` es la totalidad de los Kg Disponibles = 343.
+
+Código para comprobara la operación:
+```
+AvailableKg = 343,
+ReservedKg = 343,
+```
+Si visualizamos de nuevo el contenido de la web, lo que nos devuelve es :
+```
+Kg Disponibles = 0
+0 Cajas de 5kg y 0kg sueltos.
+Valor del excedente = 00.00 
+Estado = "Agotado"
+```
+Al haber agotado el producto, el botón de "Reservar" queda deshabilitado, indicandole al usuario que no puede realizar la reserva.
+
+#### Caso D
+En este caso lo que haremos será modificar el valor de días de consumo o **HarvestDate**, y lo que le pondremos en este caso en el código será: 
+```
+HarvestDate = DateTime.Today.AddDays(-6),
+```
+Esto indica al usuario que tiene 1 día de consumo preferente antes de que finalice la fecha de consumo preferente, debiendo aparecerle en la web como: 
+```
+Días para consumirlo = 1
+```
+#### Caso E
+En este caso, lo que haremos será sustituir la nota que nos ha dejado el productor de **Recoger antes de las 14:00** por *`null`*. En el proyecto lo que deberemos modificar es en nuestra clase `Surplus`, el apartado donde está la nota, quedando de la siguiente forma:
+```
+Note = null
+```
+Al visualizar la web de nuevo, lo que nos debe de mostrar es 
+```
+Nota : Sin Observaciones
+```
 ## Directivas 
 
 **Pregunta**:
@@ -181,7 +247,7 @@ Haz una tabla con cada directiva o fichero especial de tu proyecto (`@page`, `@p
 
 | Directiva | ¿Que cambia con respecto al comportamiento por defecto? |
 |----------------------------|----------------------------------------|
-|`@page`|Convierte el fichero .cshtml en una Razor Page accesible mediante una URL |
+|`@page`|Convierte el archivo .cshtml en una Razor Page, permitiendo responder a peticiones HTTP mediante una URL y la ruta se establece automáticamente según donde esté ubicado dentro de la carpeta *`pages`*|
 |`@page "/ticket"` |Lo que hace es hacer un alias para que vaya directamente a ticket sin tener que usar /reservations/ticket|
 |`@model` ||
 |`@using` ||

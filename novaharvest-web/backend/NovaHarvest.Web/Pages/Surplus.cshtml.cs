@@ -1,4 +1,6 @@
+using System.Formats.Tar;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NovaHarvest.Web.Models;
 
 public class SurPlusModel : PageModel
@@ -8,16 +10,16 @@ public class SurPlusModel : PageModel
     private const int ShelfLifeDays = 7;
     private const int LowStockKg = 50;
 
-    public surPlus Surplus { get; } = new()
+    public SurPlus Surplus { get; } = new()
     {
         Product = "Cereza Picota",
         Producer = "Huerta de los castaños",
         Village = "Cabezuela del Valle",
-        HarvestDate = DateTime.Today.AddDays(-2),
+        HarvestDate = DateTime.Today.AddDays(-6),
         AvailableKg = 343,
         ReservedKg = 120,
         PricePerKg = 3.2m,
-        Note = "Recoger antes de las 14:00"
+        Note = "<b>Recoger antes de las 14:00</b>"
     };
     public int RemainingKg { get; private set; }
     public int Boxes { get; private set; }

@@ -1,6 +1,6 @@
 namespace NovaHarvest.Web.Models;
 
-public class surPlus
+public class SurPlus
 {
     public string Product {get; set;} = "";
     public string Producer {get; set;} = "";

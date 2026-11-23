@@ -1,4 +1,5 @@
 @page
+@using Microsoft.VisualBasic
 @model SurPlusModel
 
 @{
@@ -9,13 +10,13 @@
 <p>Producto: @Model.Surplus.Product</p>
 <p>Productor: @Model.Surplus.Producer</p>
 <p>Localidad: @Model.Surplus.Village</p>
-<p>Fecha de Cosecha: @Model.Surplus.HarvestDate</p>
-<p>Precio por Kg: @Model.Surplus.PricePerKg</p>
-<p>Precio con Descuento: @Model.DiscountedPrice</p>
-<p>Kilos disponibles: @Model.RemainingKg</p>
+<p>Fecha de Cosecha: @Model.Surplus.HarvestDate.ToString("dd/MM/yyyy")</p>
+<p>Precio por Kg: @Model.Surplus.PricePerKg.ToString("C") /Kg</p>
+<p>Precio con Descuento: @Model.DiscountedPrice.ToString("C") / Kg</p>
+<p>Kilos disponibles: @Model.RemainingKg Kg</p>
 <p>@Model.Boxes cajas de 5 kg y @Model.LooseKg kg sueltos</p>
 <p>Valor del excedente: @Model.SurplusValue €</p>
 <p>Dias para consumirlo: @Model.RemainingDays</p>
 <p>Estado: @Model.Status</p>
-<p>Nota del productor: @Model.Surplus.Note</p>
+<p>Nota del productor: @Html.Raw(Model.Surplus.Note)</p>
 <button disabled="@Model.IsSoldOut">Reservar</button>
