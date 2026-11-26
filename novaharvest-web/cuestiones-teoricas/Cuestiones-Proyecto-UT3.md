@@ -192,13 +192,13 @@ Y a la hora de visualizar la página nos muestra los siguientes datos:
 En este caso lo que tenemos que modificar en el código del proyecto es `ReservedKg` y lo tenemos que poner como `ReservedKg = 300`.
 
 Código para comprobar la operación:
-```
+```csharp
 AvailableKg = 343,
 ReservedKg = 300,
 ```
 
 A la hora de visualizar la página de nuevo con estos datos actualizados, nos muestra:
-```
+```cshtml
 Kg Disponibles = 43
 8 Cajas de 5kg y 3kg sueltos.
 Valor del excedente = 96.32 
@@ -208,12 +208,12 @@ Estado = "¡Últimos Kilos!"
 Hacemos la misma operación que en el caso anterior pero esta vez el valor de `ReservedKg` es la totalidad de los Kg Disponibles = 343.
 
 Código para comprobara la operación:
-```
+```csharp
 AvailableKg = 343,
 ReservedKg = 343,
 ```
 Si visualizamos de nuevo el contenido de la web, lo que nos devuelve es :
-```
+```cshtml
 Kg Disponibles = 0
 0 Cajas de 5kg y 0kg sueltos.
 Valor del excedente = 00.00 
@@ -223,20 +223,20 @@ Al haber agotado el producto, el botón de "Reservar" queda deshabilitado, indic
 
 #### Caso D
 En este caso lo que haremos será modificar el valor de días de consumo o **HarvestDate**, y lo que le pondremos en este caso en el código será: 
-```
+```csharp
 HarvestDate = DateTime.Today.AddDays(-6),
 ```
 Esto indica al usuario que tiene 1 día de consumo preferente antes de que finalice la fecha de consumo preferente, debiendo aparecerle en la web como: 
-```
+```csharp
 Días para consumirlo = 1
 ```
 #### Caso E
 En este caso, lo que haremos será sustituir la nota que nos ha dejado el productor de **Recoger antes de las 14:00** por *`null`*. En el proyecto lo que deberemos modificar es en nuestra clase `Surplus`, el apartado donde está la nota, quedando de la siguiente forma:
-```
+```csharp
 Note = null
 ```
 Al visualizar la web de nuevo, lo que nos debe de mostrar es 
-```
+```csharp
 Nota : Sin Observaciones
 ```
 ## Directivas 
@@ -245,22 +245,85 @@ Nota : Sin Observaciones
 
 Haz una tabla con cada directiva o fichero especial de tu proyecto (`@page`, `@page "/ticket"`, `@model`, `@using`, `@namespace`, `@inject`, `_ViewStart.cshtml` y `Layout = null`) y el comportamiento por defecto que cambia. Quita `@namespace` de `_ViewImports.cshtml`: copia el error y explícalo. ¿Por qué `/reservations/ticket` da 404?
 
-| Directiva | ¿Que cambia con respecto al comportamiento por defecto? |
+| Directiva / fichero | ¿Qué cambia con respecto al comportamiento por defecto? |
 |----------------------------|----------------------------------------|
-|`@page`|Convierte el archivo .cshtml en una Razor Page, permitiendo responder a peticiones HTTP mediante una URL y la ruta se establece automáticamente según donde esté ubicado dentro de la carpeta *`pages`*|
-|`@page "/ticket"` |Lo que hace es hacer un alias para que vaya directamente a ticket sin tener que usar /reservations/ticket|
-|`@model` ||
-|`@using` ||
-|`@namespace` ||
-|`@inject` ||
-|`_ViewStart.cshtml` ||
-|`Layout = null` ||
+| `@page` | Convierte el archivo `.cshtml` en una Razor Page, permitiendo responder a peticiones HTTP mediante una URL. La ruta se establece automáticamente según su ubicación dentro de la carpeta `Pages`. |
+| `@page "/ticket"` | Cambia la ruta por defecto de la página y crea un alias. En lugar de acceder mediante `/reservations/ticket`, la página pasa a responder directamente en `/ticket`. |
+| `@model` | Asocia la vista con un PageModel concreto. Gracias a ello se puede acceder a sus propiedades y métodos mediante `@Model`. |
+| `@using` | Importa un espacio de nombres para poder utilizar clases sin escribir su nombre completo. En mi proyecto permite usar modelos como `Surplus` o `SiteStats` directamente en las vistas Razor. |
+| `@namespace` | Define el espacio de nombres que tendrán las clases generadas por Razor al compilar los archivos `.cshtml`. Facilita que Razor encuentre correctamente los PageModel asociados. |
+| `@inject` | Inyecta un servicio o dependencia dentro de una página Razor. En mi proyecto inyecto `IWebHostEnvironment` para mostrar el entorno de ejecución mediante `@Env.EnvironmentName`. |
+| `_ViewStart.cshtml` | Ejecuta código común para todas las páginas antes de renderizarlas. En mi proyecto establece que todas utilicen `_Layout.cshtml` como plantilla común. |
+| `Layout = null` | Desactiva el layout configurado normalmente. La página genera su HTML completo sin utilizar la cabecera, navegación y pie definidos en `_Layout.cshtml`. |
+
+#### ¿Por qué `/reservations/ticket` da 404?
+
+La página Ticket se encuentra físicamente dentro de la carpeta `/reservations`, por lo que su ruta por defecto sería `/reservations/ticket`. Sin embargo la directiva `@page` modifica dicha ruta y registra la página con el alias `/ticket` y por ese motivo, la URL válida es `/ticket` y al acceder a `/reservations/ticket` devuelve un 404 porque no encuentra esa página registrada.
 
 ## Tipos y operadores
 
 **Pregunta**:
 
 Haz una tabla con cada dato que calcula `SurplusModel`: su tipo de C#, los operadores que usa y por qué ese tipo. ¿Por qué `RemainingKg / BoxKg` da cajas completas? ¿Qué pasaría si los kilos fueran `decimal`? ¿Qué escribe Razor si muestras directamente un `bool`? ¿Y un `null`? Si los kilos fueran `decimal`, ¿cuántas cajas y kilos sueltos saldrían con 223,5 kg?
+
+**Respuesta**
+| Dato calculado | Tipo C# | Operadores usados | ¿Por qué este tipo? |
+|----------|----------|----------|----------|
+| `RemainingKg` | `int` | `-` | Representa kilos enteros disponibles después de descontar los reservados. |
+| `Boxes` | `int` | `/` | Se necesitan cajas completas, sin decimales. La división entre enteros devuelve únicamente la parte entera. |
+| `LooseKg` | `int` | `%` | Representa los kilos sobrantes que no completan una caja. |
+| `DiscountedPrice` | `decimal` | `*`, `-` | Es un precio monetario y requiere precisión decimal para evitar errores de redondeo. |
+| `SurplusValue` | `decimal` | `*` | Es una cantidad económica calculada multiplicando kilos por precio. |
+| `RemainingDays` | `int` | `+`, `-` | Representa un número entero de días restantes para consumir el producto. |
+| `IsSoldOut` | `bool` | `<=` | Solo puede tener dos estados: verdadero o falso. |
+| `IsUrgent` | `bool` | `<=`, `>`, `&&` | Indica si se cumplen simultáneamente varias condiciones. |
+| `Status` | `string` | Asignación mediante condiciones | Almacena textos como `"Disponible"`, `"Agotado"` o `"¡Últimos kilos!"`. |
+
+#### ¿Por qué RemainingKg / BoxKg da cajas completas?
+Porque ambos son de tipo **`int`**. En **C#**, al dividir dos enteros, el resultado también es entero y se descarta la parte decimal.
+
+<u>**Ejemplo**</u>
+```
+223 / 5 => 44,6 
+```
+Y así obtenemos las cajas completas, que en este caso, el resultado de la operación serían 44 cajas de 5Kg.
+
+#### ¿Qué pasaría si los kilos fueran decimal?
+La división conserva los decimales
+
+<u>**Ejemplo**</u>
+```cshtml
+223.5m / 5m => 44.7
+```
+Ya no estaríamos representando cajas completas, porque en este caso son 44 cajas de 5kg y 700gr sueltos, aquí si indicamos los decimales.
+
+#### ¿Qué escribe Razor si muestras directamente un bool?
+
+Si en una página Razor escribimos 
+```cshtml
+@Model.IsSoldOut
+```
+Razor evalúa esa propiedad y convierte el valor en texto para incluirlo en el HTML generado. 
+Por ejemplo, si la propiedad vale
+```csharp
+IsSoldOut = true;
+```
+el navegador recibe 
+```html
+true
+```
+y si vale:
+```csharp
+IsSoldOut = false;
+```
+el navegador recibirá:
+```html
+False
+```
+
+Esto ocurre porque Razor no sabe qué queremos hacer con ese valor booleano. Al encontrar `@Model.IsSoldOut`, interpreta que queremos mostrarlo y por tanto lo convierte a su representación textual.
+
+
 
 ## Cultura
 
