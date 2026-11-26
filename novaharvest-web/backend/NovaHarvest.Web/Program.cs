@@ -3,6 +3,6 @@ builder.Services.AddRazorPages();
 var app = builder.Build();
 app.MapStaticAssets();
 app.MapRazorPages();
-
+app.UseRequestLocalization("es-ES");
 app.Run();
 

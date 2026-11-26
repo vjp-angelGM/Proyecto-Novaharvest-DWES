@@ -323,7 +323,18 @@ False
 
 Esto ocurre porque Razor no sabe qué queremos hacer con ese valor booleano. Al encontrar `@Model.IsSoldOut`, interpreta que queremos mostrarlo y por tanto lo convierte a su representación textual.
 
+### ¿Y si fuera un `null`?
+Actualmente los kilos se almacenan en `int`, por lo que no pueden contener el valor `null`. Para permitirlo.
 
+Si el valor fuera `null`, Razor muestra directamente:
+
+```cshtml
+@Model.AvailableKg
+```
+Y esto no escribiría nada en el HTML generado y el resultado aparecería vacío. El verdadero problema está en SurplusModel, porque no se podrían realizar operaciones matemáticas con un valor nulo sin tratarlo previamente.
+
+### ¿Cuantas cajas y kilos sueltos saldrían con 223,5kg?
+Si los kilos fueran decimales, los kilos sueltos no tienen porque ser un número entero. Mientras que con un `int`, los kilos sueltos serían 3, con `decimal`, pasan a ser 3,5. Además, de dividir 223,5 / 5 da 44,7, que serían 44 cajas de 5kg y 3,5kg sueltos. Al usar decimal, tanto los totales, como los sueltos pueden contener valores con decimales, dando cantidades más precisas.
 
 ## Cultura
 
@@ -331,12 +342,37 @@ Esto ocurre porque Razor no sabe qué queremos hacer con ese valor booleano. Al 
 
 Quita `UseRequestLocalization("es-ES")` (y vuelve a ponerlo al terminar). Copia lo que muestran los precios de `/surplus` y la fecha de `/` con Docker y con `dotnet run`. Explica las diferencias y por qué esa línea las elimina.
 
+**Respuesta**: 
+Al eliminar `UseRequestLocalization("es-ES")`, la aplicación usa la cultura por defecto del sistema operativo o del contenedor. Como Windows y Linux pueden tener diferentes configuraciones regionales y las fechas y números pueden mostrarse de manera distinta.
+
+Al configurar explicitamente la cultura española mediante `UseRequestLocalization("es-Es")`, se fuerza el mismo formato de fechas, números y precios en todos los entornos.
+
 ## Ámbito
 
 **Pregunta**:
 
 Cambia temporalmente el contador de `/status` por una variable local en un `@{ }` de la página y recarga varias veces: ¿qué ves y por qué? Con `SiteStats`, ¿qué ve otro navegador, y qué pasa tras `docker compose restart backend`? ¿Por qué el layout no puede leer una variable declarada en `Status.cshtml`, y cómo le llega entonces el título?
 
+**Respuesta**:
+El contador de visitas se almacena en una variable estática:
+```csharp
+private static int _visits;
+```
+Para comprobar el comportamiento, lo cambié temporalmente por una variable local dentro de un bloque Razor.
+```cshtml
+@{
+    int visits = 0;
+    visits++;
+}
+<p>Visitas: @visits</p>
+```
+Tras recargar la página varias veces siempre se muestra: 
+```html
+<p>Visitas: 1</p>
+```
+Esto ocurre porque la variable es local, se crea desde cero cada vez que Razor genera la página. En cada petición, su valor vuelve a ser 0, se incrementa a 1 y luego desaparece al acabar la generación del `HTML`.
+
+Por lo tanto, la variable <u>**NO CONSERVA**</u> su valor entre peticiones.
 ## PageModel
 
 **Pregunta**:
