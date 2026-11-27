@@ -56,6 +56,9 @@ Copia de tu proyecto un ejemplo de cada: `expresión implícita`, `expresión ex
 ```
 @Model.Stats.Visits
 ```
+
+![alt text](image-3.png)
+
 Esto `Razor`lo hace cuando evalúa directamente algo detrás de un `@`. En el proyecto lo utilizo en `@Model.Stats.Visits` para mostrar el número de visitas de la página de `Estado`. Si el **contador** tuviera el valor de `5`, el HTML generado contendría el valor de `5`.
 
 HTML GENERADO 
@@ -71,6 +74,8 @@ HTML GENERADO
 ```
 223 Kg
 ```
+![alt text](image-4.png)
+
 Una `expresión explícita` se escribe entre `@()` para indicarle a `Razor`donde empieza y donde termina la <u>`expresión`</u>. Se utiliza cuando la expresión es <u>**más compleja**</u> o donde se combinan varios elementos. En este caso, se evalúa primero la operación que realiza `@Model.RemainingKg + "kg"` y después escribe el resultado en el HTML generado, que en este caso sería `223 kg`.
 
 
@@ -86,6 +91,8 @@ HTML GENERADO
 No genera HTML pero en la pestaña aparecería: Novaharvest - Estado
 ```
 
+![alt text](image-5.png)
+
 Un bloque `@{ }` permite ejecutar código `C#` dentro de la página `Razor`. Este bloque no genera `HTML` directamente. En el proyecto, lo utilizo para asignar el valor de `ViewData["Title"]`, que luego es utilizado por la plantilla `_Layout.cshtml` para construir el contenido de la etiqueta `<title>` de la página.
 
 ### 4. <u>@@</u>
@@ -96,7 +103,12 @@ HTML GENERADO
 ```
 @Novaharvest
 ```
+
+![alt text](image-6.png)
+
 `@@` se utiliza para escribir el carácter `@` de forma literal. Si escribiéramos únicamente `@novaharvest`, **Razor** intentaría interpretarlo como una expresión `C#`, pero si escribimos, `@@novaharvest`, **Razor** genera el texto `@novaharvest` en el HTML sin intentar evaluarlo.
+
+**Nota**: Yo en mi proyecto lo tengo como se ve en la imagen
 
 ### 5. <u>Comentario @* *@</u>
 ```
@@ -159,6 +171,8 @@ Ejemplo
 ```
 <p>Nota del productor: <b>Recoger antes de las 14:00</b></p>
 ```
+![alt text](image-7.png)
+
 Si muestro el código fuente de la página lo que se ve es: 
 ```
 <p>Nota del productor: &lt;b&gt;Recoger antes de las 14:00&lt;/b&gt;</p>
@@ -378,3 +392,33 @@ Por lo tanto, la variable <u>**NO CONSERVA**</u> su valor entre peticiones.
 **Pregunta**:
 
 ¿Qué has puesto en `SurplusModel` y qué en `Surplus.cshtml`, y por qué? Cita un cálculo concreto. Si cargas `/surplus` tres veces, ¿cuántos objetos `SurplusModel` se crean y cuánto vive cada uno? ¿Y el contador de `SiteStats`?
+
+**Respuesta**:
+
+En `SurplusModel` está el HTML que recoge los calculos de `Surplus.cshtml.cs` y con el `_Layout.cshtml` renderiza la página que visualiza el usuario.
+
+#### Surplus.cshtml.cs
+![alt text](image.png)
+
+El cálculo concreto que he elegido es el de las cajas, porque por ejemplo:
+
+```
+public void OnGet(){
+    ...
+    Boxes = RemainingKg / BoxKg
+}
+```
+Lo que hacemos es saber cuantas cajas exactamente nos mostrará con el total de kilos que hay, es decir, con los kilos de excedente que tenemos. Si tenemos 343kg y queremos saber cuantas cajas de 5kg nos van a salir, la operación que realiza es:
+
+```
+343 / 5 = 68,6 
+```
+En este caso serían 68 cajas de 5kg. Si cargo `/surplus` 3 veces, cada vez, hace el cálculo de manera independiente y con los datos que hay en esa variable.
+
+El contador de `SiteStats` funciona de forma diferente porque si almacena el valor que contiene de la última vez, en este caso:
+
+![alt text](image-1.png)
+
+En este caso tiene una porque lo acabo de inicializar ahora, pero si yo volviese a recargar la página nuevamente, esa variable de visitas, se incrementa, con lo cual, ahora no sería 1 visita, serían 2
+
+![alt text](image-2.png)
